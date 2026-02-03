@@ -84,8 +84,10 @@
 </div>
 
 <script>
-    // إعدادات الروابط الخاصة بك
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdf64QgE5IPYzzsVmB_wyNvon8e9g_J6SXgv_QAriRty4VYAND-f2b7-6chlvH4gEg/exec';
+    // ✅ تم وضع رابطك الجديد هنا
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCynJbrAxqkUsutXQjyxmk4hGjD0Ims3m8PYIumLiuWp6LwbCC1-1FQUaG5_jIKX6V/exec';
+    
+    // معرف ملفك
     const SHEET_ID = '1dsOygDvAEVwPVFDiIS-OFnO1sxsbNHDYF0JnsG01VCQ';
 
     const form = document.getElementById('labForm');
@@ -93,13 +95,12 @@
     const saveBtn = document.getElementById('saveBtn');
     const downBtn = document.getElementById('downBtn');
 
-    // --- كود التحميل الذكي (يجبر المتصفح على تنزيل نسخة جديدة) ---
+    // --- كود التحميل الذكي ---
     downBtn.addEventListener('click', () => {
         let random = Math.floor(Math.random() * 999999);
-        // رابط التصدير المباشر مع رقم عشوائي
         let link = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx&v=${random}`;
         
-        // إنشاء رابط خفي والضغط عليه (لتفادي فتح التطبيق قدر الإمكان)
+        // التحميل الإجباري
         const a = document.createElement('a');
         a.href = link;
         a.target = '_blank';
@@ -119,23 +120,27 @@
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form)})
         .then(response => response.text())
         .then(text => {
-            msg.innerText = "✅ " + text;
+            // التحقق من الاستجابة
             msg.style.display = "block";
-            msg.style.color = "green";
-            msg.style.background = "#e8f5e9";
             
             if(text.includes("خطأ")) {
                 msg.style.color = "#721c24";
                 msg.style.background = "#f8d7da";
                 msg.innerText = "❌ " + text;
+            } else {
+                msg.style.color = "green";
+                msg.style.background = "#e8f5e9";
+                msg.innerText = "✅ " + text;
             }
             saveBtn.innerText = "حفظ في الجدول";
             saveBtn.disabled = false;
         })
         .catch(error => {
-            msg.innerText = "❌ تأكد من اتصال الإنترنت";
+            msg.innerText = "❌ فشل الاتصال! تأكد من النت";
             msg.style.display = "block";
-            msg.style.color = "red";
+            msg.style.color = "white";
+            msg.style.background = "red";
+            saveBtn.innerText = "حفظ في الجدول";
             saveBtn.disabled = false;
         });
     });
