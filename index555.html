@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدخال تحاليل المياه الشاملة</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { background: white; max-width: 450px; margin: auto; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
+        label { display: block; margin-top: 12px; font-weight: 600; color: #333; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; transition: 0.3s; background: white; }
+        input:focus, select:focus { border-color: #1a73e8; outline: none; }
+        
+        /* زر الحفظ */
+        button[type="submit"] { width: 100%; margin-top: 25px; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:disabled { background: #ccc; }
+
+        /* زر التحميل */
+        .download-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #6c757d; /* رمادي */
+            color: white;
+            padding: 14px;
+            margin-top: 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-sizing: border-box;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .download-btn:hover { background: #5a6268; }
+
+        .msg { display: none; text-align: center; margin-top: 15px; font-weight: bold; background: #e8f5e9; padding: 10px; border-radius: 5px; color: green; }
+        .section-title { margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 5px; color: #555; font-size: 18px; font-weight: bold; }
+        .sheet-selector { border: 2px solid #1a73e8; background-color: #e8f0fe; font-weight: bold; color: #1a73e8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 إدخال النتائج المخبرية</h2>
+    <form id="labForm">
+        
+        <label style="color: #d93025;">اختر الورقة (Sheet)*</label>
+        <select name="sheetName" class="sheet-selector">
+            <option value="Brutes">Brutes (مياه خام)</option>
+            <option value="Traitées">Traitées (مياه معالجة)</option>
+        </select>
+
+        <label>رقم العينة (N°)*</label>
+        <input type="text" name="N°" placeholder="مثال: B1, B2..." required>
+
+        <label>نقطة أخذ العينة</label>
+        <input type="text" name="Point de prélèvement">
+
+        <label>المركز (Centre)</label>
+        <input type="text" name="Centre">
+
+        <label>البلدية (Communes)</label>
+        <input type="text" name="Communes">
+
+        <label>التاريخ (Date)</label>
+        <input type="date" name="Date">
+
+        <div class="section-title">الخواص الفيزيائية</div>
+        
+        <label>اللون (Couleur)</label>
+        <input type="text" name="Couleur">
+
+        <label>الحرارة (Temp)</label>
+        <input type="number" step="0.1" name="Temp">
+
+        <label>الموصلية (Cond.)</label>
+        <input type="number" step="0.01" name="Cond.">
+
+        <label>الملوحة (Salinité)</label>
+        <input type="number" step="0.01" name="Salinité">
+
+        <label>TDS</label>
+        <input type="number" step="0.01" name="TDS">
+
+        <label>العكارة (Turbidité)</label>
+        <input type="number" step="0.01" name="Turbidité">
+
+        <label>pH</label>
+        <input type="number" step="0.1" name="pH">
+
+        <div class="section-title">الخواص الكيميائية (1)</div>
+
+        <label>RS</label>
+        <input type="number" step="0.01" name="RS">
+
+        <label>المواد العضوية (MO)</label>
+        <input type="number" step="0.01" name="MO">
+
+        <label>الكالسيوم (Calcium)</label>
+        <input type="number" step="0.01" name="Calcium">
+
+        <label>العسر (Dureté)</label>
+        <input type="number" step="0.01" name="Dureté">
+        
+        <label>المغنيسيوم (Mg)</label>
+        <input type="number" step="0.01" name="Mg">
+
+        <div class="section-title">الخواص الكيميائية (2)</div>
+
+        <label>الصوديوم (Sodium)</label>
+        <input type="number" step="0.01" name="Sodium">
+
+        <label>البوتاسيوم (Potassium)</label>
+        <input type="number" step="0.01" name="Potassium">
+
+        <label>الأمونيوم (Ammonium)</label>
+        <input type="number" step="0.01" name="Ammonium">
+
+        <label>النتريت (Nitrites)</label>
+        <input type="number" step="0.01" name="Nitrites">
+
+        <label>النترات (Nitrates)</label>
+        <input type="number" step="0.01" name="Nitrates">
+
+        <label>الفوسفات (Phosphates)</label>
+        <input type="number" step="0.01" name="Phosphates">
+
+        <label>الكلوريدات (Chlorures)</label>
+        <input type="number" step="0.01" name="Chlorures">
+
+        <label>القلوية (Alcalinité)</label>
+        <input type="number" step="0.01" name="Alcalinité">
+
+        <label>البيكربونات (Bicarbonate)</label>
+        <input type="number" step="0.01" name="Bicarbonate">
+
+        <label>الكبريتات (Sulfates)</label>
+        <input type="number" step="0.01" name="Sulfates">
+
+        <label>الحديد الكلي (Fer total)</label>
+        <input type="number" step="0.01" name="Fer total">
+
+        <label>المنغنيز (Manganèse)</label>
+        <input type="number" step="0.01" name="Manganèse">
+
+        <label>الألومنيوم (Aluminium)</label>
+        <input type="number" step="0.01" name="Aluminium">
+
+        <button type="submit" id="saveBtn">حفظ في الجدول</button>
+        
+        <button type="button" id="downloadBtn" class="download-btn">📥 تحميل ملف Excel (نسخة جديدة)</button>
+
+        <div class="msg" id="msg"></div>
+    </form>
+</div>
+
+<script>
+    // 1. رابط Apps Script (تأكد أنه هو نفسه الذي يعمل معك حالياً)
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdf64QgE5IPYzzsVmB_wyNvon8e9g_J6SXgv_QAriRty4VYAND-f2b7-6chlvH4gEg/exec';
+    
+    // 2. معرف ملف جوجل شيت (مأخوذ من الرابط الذي أرسلته لي)
+    const SHEET_ID = '1dsOygDvAEVwPVFDiIS-OFnO1sxsbNHDYF0JnsG01VCQ';
+
+    const form = document.getElementById('labForm');
+    const msg = document.getElementById('msg');
+    const saveBtn = document.getElementById('saveBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // --- وظيفة التحميل الذكي (لحل مشكلة عدم ظهور التغييرات) ---
+    downloadBtn.addEventListener('click', () => {
+        // رقم عشوائي لإجبار المتصفح على تحميل نسخة جديدة
+        const randomNum = Math.floor(Math.random() * 99999);
+        
+        // بناء الرابط
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx&id=${SHEET_ID}&cacheBuster=${randomNum}`;
+        
+        // فتح الرابط للتحميل
+        window.location.href = url;
+    });
+
+    // --- وظيفة الحفظ ---
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        saveBtn.disabled = true;
+        saveBtn.innerText = "جاري الحفظ...";
+
+        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form)})
+        .then(response => response.text())
+        .then(text => {
+            msg.innerText = "✅ " + text;
+            msg.style.display = "block";
+            
+            if(text.includes("خطأ")) {
+                msg.style.color = "red";
+                msg.innerText = "❌ " + text;
+            } else {
+                msg.style.color = "green";
+            }
+
+            saveBtn.innerText = "حفظ في الجدول";
+            saveBtn.disabled = false;
+        })
+        .catch(error => {
+            msg.innerText = "❌ حدث خطأ في الاتصال بالإنترنت";
+            msg.style.display = "block";
+            msg.style.color = "red";
+            saveBtn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
